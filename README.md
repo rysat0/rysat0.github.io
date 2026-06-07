@@ -1,73 +1,53 @@
-# React + TypeScript + Vite
+# PortFolio — Ryuu Leonardo Sato (rysato)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A dark, neon-accented personal portfolio for **Ryuu Leonardo Sato** (Leonardo) —
+Brazilian-Japanese software engineer and CTO of StepAI, Inc.
 
-Currently, two official plugins are available:
+Single-page, bilingual (EN / 日本語), with a WebGL shader hero, scroll-reveal
+sections, and a fully static build deployable to **GitHub Pages**.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech stack
 
-## React Compiler
+- **Vite** + **React 19** + **TypeScript**
+- **Tailwind CSS v4** + **shadcn/ui** (dark theme, neon-green accent)
+- **three.js** — colorful WebGL shader hero (code-split, lazy-loaded)
+- **anime.js** — hero entrance animation
+- **motion** (Framer Motion) — scroll reveals
+- All motion respects `prefers-reduced-motion`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Local development
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev        # start dev server (http://localhost:5173)
+npm run build      # type-check + production build to dist/
+npm run preview    # preview the production build locally
+npm run lint       # eslint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Content
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+All copy lives in typed, bilingual data files — no hard-coded strings in the UI:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- `src/data/profile.ts` — bio, expertise, contact, "What's 42?"
+- `src/data/projects.ts` — projects (with optional external links)
+- `src/i18n/dictionary.ts` — UI chrome strings (EN / JA)
+
+Edit those files to update the site; the language toggle in the navbar switches
+between English and Japanese (persisted to `localStorage`, syncs `<html lang>`).
+
+## Deployment (GitHub Pages, user page)
+
+This project is configured for the **user page** `rysat0.github.io`
+(`base: '/'` in `vite.config.ts`).
+
+1. Create/use a repository named **`rysat0.github.io`** and push this code to the
+   `main` branch.
+2. In the repo: **Settings → Pages → Build and deployment → Source = "GitHub
+   Actions"**.
+3. Every push to `main` runs `.github/workflows/deploy.yml`, which builds the app
+   and publishes `dist/` to GitHub Pages. The site goes live at
+   `https://rysat0.github.io/`.
+
+> Deploying to a **project page** (`rysat0.github.io/<repo>/`) instead would
+> require setting `base: '/<repo>/'` in `vite.config.ts`.
