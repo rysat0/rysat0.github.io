@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Playwright MCP / visual-check artifacts
+.playwright-mcp/
+*.screenshot.jpeg
+phase*-hero.jpeg
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
