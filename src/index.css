@@ -145,6 +145,12 @@
     background: var(--neon-glow);
     color: oklch(0.16 0.03 150);
     }
+  /* Clear, on-brand keyboard focus indicator for all interactive elements */
+  :focus-visible {
+    outline: 2px solid var(--neon);
+    outline-offset: 2px;
+    border-radius: 3px;
+    }
 }
 
 @layer utilities {

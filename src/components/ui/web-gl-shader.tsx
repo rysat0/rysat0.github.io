@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react"
 import * as THREE from "three"
 
+import { prefersReducedMotion } from "@/lib/motion"
+
 interface WebGLShaderProps {
   /** Override positioning/sizing. Defaults to a fixed full-screen background. */
   className?: string
@@ -33,9 +35,7 @@ export function WebGLShader({
 
     const canvas = canvasRef.current
     const { current: refs } = sceneRef
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches
+    const reducedMotion = prefersReducedMotion()
 
     const vertexShader = `
       attribute vec3 position;
@@ -135,7 +135,7 @@ export function WebGLShader({
       const pr = refs.renderer.getPixelRatio()
       refs.uniforms.resolution.value = [width * pr, height * pr]
       // Keep a crisp static frame in sync when motion is reduced.
-      if (prefersReducedMotion) renderFrame()
+      if (reducedMotion) renderFrame()
     }
 
     try {
@@ -152,7 +152,7 @@ export function WebGLShader({
     }
 
     let observer: IntersectionObserver | null = null
-    if (prefersReducedMotion) {
+    if (reducedMotion) {
       renderFrame()
     } else {
       // Only run the render loop while the canvas is on screen to avoid

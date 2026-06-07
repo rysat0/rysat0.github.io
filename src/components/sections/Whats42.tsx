@@ -17,11 +17,11 @@ export function Whats42() {
         />
         <div className="relative flex flex-col gap-4">
           <span className="font-mono-tight text-xs uppercase tracking-[0.22em] text-neon">
-            💡 {ui.sections.whats42[lang]}
+            <span aria-hidden="true">💡</span> {ui.sections.whats42[lang]}
           </span>
-          <h3 className="text-2xl font-semibold tracking-tight md:text-3xl">
+          <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
             42&nbsp;/&nbsp;42Tokyo
-          </h3>
+          </h2>
           <div className="flex max-w-3xl flex-col gap-3">
             {profile.whats42.body[lang].map((text, i) => (
               <p key={i} className="leading-relaxed text-muted-foreground text-pretty">

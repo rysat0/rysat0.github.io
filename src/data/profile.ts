@@ -29,7 +29,6 @@ export interface Profile {
   nickname: string
   handle: string
   role: Localized
-  roleChips: Localized
   location: Localized
   heroHeadlinePrefix: Localized
   heroTagline: Localized
@@ -47,10 +46,6 @@ export const profile: Profile = {
   role: {
     en: "Software Engineer & CTO of StepAI, Inc.",
     ja: "ソフトウェアエンジニア / StepAI株式会社 CTO",
-  },
-  roleChips: {
-    en: "Software Engineer · CTO @ StepAI · Tokyo",
-    ja: "Software Engineer · CTO @ StepAI · 東京",
   },
   location: { en: "Tokyo, Japan", ja: "東京" },
   heroHeadlinePrefix: { en: "Hi, I'm", ja: "こんにちは、" },

@@ -6,6 +6,7 @@ import { LiquidButton } from "@/components/ui/liquid-glass-button"
 import { profile } from "@/data/profile"
 import { ui } from "@/i18n/dictionary"
 import { useLanguage } from "@/i18n/language-context"
+import { prefersReducedMotion } from "@/lib/motion"
 
 // Code-split three.js out of the initial bundle; the dark background and hero
 // copy render immediately while the shader chunk loads.
@@ -16,11 +17,8 @@ const WebGLShader = lazy(() =>
 )
 
 function scrollToId(id: string) {
-  const prefersReduced = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  ).matches
   document.getElementById(id)?.scrollIntoView({
-    behavior: prefersReduced ? "auto" : "smooth",
+    behavior: prefersReducedMotion() ? "auto" : "smooth",
   })
 }
 
@@ -28,12 +26,7 @@ export function Hero() {
   const { lang } = useLanguage()
   const contentRef = useRef<HTMLDivElement>(null)
 
-  const prefersReduced = useMemo(
-    () =>
-      typeof window !== "undefined" &&
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-    []
-  )
+  const prefersReduced = useMemo(() => prefersReducedMotion(), [])
 
   // Staggered entrance for the hero copy (anime.js). The initial hidden state
   // is set imperatively (not via React-controlled inline styles) so that later

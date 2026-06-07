@@ -21,7 +21,7 @@ export function About() {
               {profile.role[lang]}
             </p>
             <p className="font-mono-tight text-sm text-muted-foreground">
-              📍 {profile.location[lang]}
+              <span aria-hidden="true">📍</span> {profile.location[lang]}
             </p>
           </Reveal>
         </div>

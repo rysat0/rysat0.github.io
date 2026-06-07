@@ -50,12 +50,12 @@ export const ui = {
 
   footer: {
     tagline: { en: "Built from the metal up.", ja: "鉄から、積み上げる。" },
-    rights: { en: "All rights reserved.", ja: "All rights reserved." },
   } satisfies Record<string, Localized>,
 
   a11y: {
     toggleLanguage: { en: "Switch to Japanese", ja: "Switch to English" },
     openMenu: { en: "Open menu", ja: "メニューを開く" },
     closeMenu: { en: "Close menu", ja: "メニューを閉じる" },
+    skipToContent: { en: "Skip to content", ja: "本文へスキップ" },
   } satisfies Record<string, Localized>,
 }

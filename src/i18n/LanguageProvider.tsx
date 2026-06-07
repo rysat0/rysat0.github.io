@@ -39,16 +39,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
   }, [lang])
 
-  const setLang = useCallback((next: Lang) => setLangState(next), [])
   const toggle = useCallback(
     () => setLangState((prev) => (prev === "en" ? "ja" : "en")),
     []
   )
 
-  const value = useMemo(
-    () => ({ lang, setLang, toggle }),
-    [lang, setLang, toggle]
-  )
+  const value = useMemo(() => ({ lang, toggle }), [lang, toggle])
 
   return (
     <LanguageContext.Provider value={value}>
