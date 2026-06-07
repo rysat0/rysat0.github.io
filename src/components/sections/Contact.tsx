@@ -8,6 +8,7 @@ import {
   MailIcon,
   XIcon,
 } from "@/components/icons"
+import { Reveal } from "@/components/Reveal"
 import { Section, SectionHeading } from "@/components/Section"
 import { profile } from "@/data/profile"
 import { ui } from "@/i18n/dictionary"
@@ -65,25 +66,27 @@ export function Contact() {
 
   return (
     <Section id="contact">
-      <SectionHeading
-        label={ui.sectionLabels.contact[lang]}
-        title={ui.sections.contact[lang]}
-      />
+      <Reveal>
+        <SectionHeading
+          label={ui.sectionLabels.contact[lang]}
+          title={ui.sections.contact[lang]}
+        />
 
-      <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground text-pretty">
-        {ui.contact.intro[lang]}
-      </p>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground text-pretty">
+          {ui.contact.intro[lang]}
+        </p>
+      </Reveal>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2">
-        {methods.map(({ label, value, href, Icon, external }) => (
-          <a
-            key={label}
-            href={href}
-            {...(external
-              ? { target: "_blank", rel: "noopener noreferrer" }
-              : {})}
-            className="group flex items-center gap-4 rounded-xl border border-border bg-card/40 p-5 transition-colors hover:border-neon/50"
-          >
+        {methods.map(({ label, value, href, Icon, external }, i) => (
+          <Reveal key={label} delay={(i % 2) * 0.08}>
+            <a
+              href={href}
+              {...(external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              className="group flex items-center gap-4 rounded-xl border border-border bg-card/40 p-5 transition-colors hover:border-neon/50"
+            >
             <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary/40 text-foreground transition-colors group-hover:border-neon/50 group-hover:text-neon">
               <Icon className="size-5" />
             </span>
@@ -93,8 +96,9 @@ export function Contact() {
               </span>
               <span className="truncate text-foreground">{value}</span>
             </span>
-            <ArrowUpRightIcon className="ml-auto size-4 shrink-0 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neon" />
-          </a>
+              <ArrowUpRightIcon className="ml-auto size-4 shrink-0 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neon" />
+            </a>
+          </Reveal>
         ))}
       </div>
     </Section>

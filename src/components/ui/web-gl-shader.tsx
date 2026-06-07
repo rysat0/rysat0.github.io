@@ -151,14 +151,29 @@ export function WebGLShader({
       return
     }
 
+    let observer: IntersectionObserver | null = null
     if (prefersReducedMotion) {
       renderFrame()
     } else {
-      animate()
+      // Only run the render loop while the canvas is on screen to avoid
+      // burning GPU/CPU once the hero is scrolled away.
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            if (refs.animationId === null) animate()
+          } else if (refs.animationId !== null) {
+            cancelAnimationFrame(refs.animationId)
+            refs.animationId = null
+          }
+        },
+        { threshold: 0 }
+      )
+      observer.observe(canvas)
     }
     window.addEventListener("resize", handleResize)
 
     return () => {
+      observer?.disconnect()
       if (refs.animationId) cancelAnimationFrame(refs.animationId)
       window.removeEventListener("resize", handleResize)
       if (refs.mesh) {

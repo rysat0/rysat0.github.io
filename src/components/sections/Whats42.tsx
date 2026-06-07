@@ -1,4 +1,5 @@
 import { ArrowUpRightIcon } from "@/components/icons"
+import { Reveal } from "@/components/Reveal"
 import { Section } from "@/components/Section"
 import { profile } from "@/data/profile"
 import { ui } from "@/i18n/dictionary"
@@ -9,7 +10,7 @@ export function Whats42() {
 
   return (
     <Section className="py-8 md:py-10">
-      <div className="relative overflow-hidden rounded-2xl border border-neon/20 bg-card/40 p-8 shadow-neon backdrop-blur md:p-10">
+      <Reveal className="relative overflow-hidden rounded-2xl border border-neon/20 bg-card/40 p-8 shadow-neon backdrop-blur md:p-10">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -top-24 -right-16 size-64 rounded-full bg-neon-soft blur-3xl"
@@ -43,7 +44,7 @@ export function Whats42() {
             ))}
           </div>
         </div>
-      </div>
+      </Reveal>
     </Section>
   )
 }
