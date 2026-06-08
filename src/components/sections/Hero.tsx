@@ -85,13 +85,6 @@ export function Hero() {
           </span>
         </div>
 
-        <p
-          data-animate
-          className="max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg"
-        >
-          {profile.heroTagline}
-        </p>
-
         <div
           data-animate
           className="mt-2 flex flex-wrap items-center justify-center gap-3"

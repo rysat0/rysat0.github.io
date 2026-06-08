@@ -29,7 +29,6 @@ export interface Profile {
   role: string
   location: string
   heroHeadlinePrefix: string
-  heroTagline: string
   about: string[]
   whats42: Whats42
   expertiseIntro: string
@@ -44,8 +43,6 @@ export const profile: Profile = {
   role: "Software Engineer & CTO of StepAI, Inc.",
   location: "Tokyo, Japan",
   heroHeadlinePrefix: "Hi, I'm",
-  heroTagline:
-    "Brazilian-Japanese software engineer building from the metal up — low-level systems in C, AI voice & RAG pipelines, and the cloud they run on.",
   about: [
     "I'm Ryuu Leonardo Sato, a 22-year-old Brazilian-Japanese software engineer and the CTO of StepAI, Inc., based in Tokyo, Japan.",
     "My journey into tech began with Electrical Engineering in high school in Nagoya. During those years I earned an Electrician's license, a Hazardous Materials Engineer's license, and a Mechanical Drawing & CAD certificate — ultimately graduating as the valedictorian of my class.",
