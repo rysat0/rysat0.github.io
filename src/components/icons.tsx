@@ -66,15 +66,6 @@ export function ArrowUpRightIcon(props: IconProps) {
   )
 }
 
-export function ArrowDownIcon(props: IconProps) {
-  return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" {...strokeProps} {...props}>
-      <path d="M12 5v14" />
-      <path d="m19 12-7 7-7-7" />
-    </svg>
-  )
-}
-
 export function MenuIcon(props: IconProps) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true" {...strokeProps} {...props}>

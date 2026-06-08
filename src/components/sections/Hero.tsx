@@ -1,7 +1,7 @@
 import { animate, stagger } from "animejs"
 import { lazy, Suspense, useLayoutEffect, useMemo, useRef } from "react"
+import { Link, useNavigate } from "react-router-dom"
 
-import { ArrowDownIcon } from "@/components/icons"
 import { LiquidButton } from "@/components/ui/liquid-glass-button"
 import { profile } from "@/data/profile"
 import { ui } from "@/data/ui"
@@ -15,13 +15,8 @@ const WebGLShader = lazy(() =>
   }))
 )
 
-function scrollToId(id: string) {
-  document.getElementById(id)?.scrollIntoView({
-    behavior: prefersReducedMotion() ? "auto" : "smooth",
-  })
-}
-
 export function Hero() {
+  const navigate = useNavigate()
   const contentRef = useRef<HTMLDivElement>(null)
 
   const prefersReduced = useMemo(() => prefersReducedMotion(), [])
@@ -93,27 +88,18 @@ export function Hero() {
             type="button"
             size="xl"
             className="text-foreground"
-            onClick={() => scrollToId("projects")}
+            onClick={() => navigate("/projects")}
           >
             {ui.hero.cta}
           </LiquidButton>
-          <a
-            href="#contact"
+          <Link
+            to="/contact"
             className="inline-flex h-12 items-center justify-center rounded-md border border-border px-7 font-medium text-foreground transition-colors hover:border-neon hover:text-neon"
           >
             {ui.hero.secondaryCta}
-          </a>
+          </Link>
         </div>
       </div>
-
-      <button
-        type="button"
-        onClick={() => scrollToId("about")}
-        aria-label={ui.hero.scroll}
-        className="absolute bottom-7 left-1/2 z-10 -translate-x-1/2 text-muted-foreground transition-colors hover:text-neon"
-      >
-        <ArrowDownIcon className="size-6 motion-safe:animate-bounce" />
-      </button>
     </section>
   )
 }

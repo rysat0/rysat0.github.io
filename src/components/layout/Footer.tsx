@@ -1,9 +1,13 @@
+import { Link, useLocation } from "react-router-dom"
+
 import { GithubIcon, LinkedinIcon, MailIcon, XIcon } from "@/components/icons"
 import { profile } from "@/data/profile"
 import { ui } from "@/data/ui"
+import { prefersReducedMotion } from "@/lib/motion"
 
 export function Footer() {
   const { contact } = profile
+  const isHome = useLocation().pathname === "/"
   const year = 2026
 
   const socials = [
@@ -17,12 +21,21 @@ export function Footer() {
     <footer className="border-t border-border">
       <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-6 px-6 py-10 sm:flex-row">
         <div className="flex flex-col items-center gap-1 sm:items-start">
-          <a
-            href="#top"
+          <Link
+            to="/"
+            onClick={() => {
+              // Already home: Link won't navigate, so scroll back to the hero.
+              if (isHome) {
+                window.scrollTo({
+                  top: 0,
+                  behavior: prefersReducedMotion() ? "auto" : "smooth",
+                })
+              }
+            }}
             className="font-mono-tight text-sm font-medium text-foreground transition-colors hover:text-neon"
           >
             <span className="text-neon">{">_"}</span> {profile.handle}
-          </a>
+          </Link>
           <p className="font-mono-tight text-xs text-muted-foreground">
             {ui.footer.tagline}
           </p>

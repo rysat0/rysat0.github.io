@@ -1,18 +1,22 @@
 import { useEffect, useState } from "react"
+import { Link, NavLink, useLocation } from "react-router-dom"
 
 import { CloseIcon, MenuIcon } from "@/components/icons"
 import { profile } from "@/data/profile"
 import { ui } from "@/data/ui"
 import { cn } from "@/lib/utils"
+import { prefersReducedMotion } from "@/lib/motion"
 
 const navItems = [
-  { href: "#about", label: ui.nav.about },
-  { href: "#expertise", label: ui.nav.expertise },
-  { href: "#projects", label: ui.nav.projects },
-  { href: "#contact", label: ui.nav.contact },
+  { to: "/about", label: ui.nav.about },
+  { to: "/expertise", label: ui.nav.expertise },
+  { to: "/projects", label: ui.nav.projects },
+  { to: "/contact", label: ui.nav.contact },
 ]
 
 export function Navbar() {
+  const location = useLocation()
+  const isHome = location.pathname === "/"
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -42,33 +46,56 @@ export function Navbar() {
     return () => mq.removeEventListener("change", onChange)
   }, [])
 
+  // Solid (blurred) over content on inner pages and once scrolled; transparent
+  // at the top of the home hero.
+  const solid = scrolled || menuOpen || !isHome
+
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    cn(
+      "font-mono-tight text-sm transition-colors hover:text-neon",
+      isActive ? "text-neon" : "text-muted-foreground"
+    )
+
+  const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
+    cn(
+      "block rounded-md px-2 py-3 font-mono-tight text-base transition-colors hover:text-neon",
+      isActive ? "text-neon" : "text-foreground"
+    )
+
   return (
     <header
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-        scrolled || menuOpen
+        solid
           ? "border-b border-border bg-background/80 backdrop-blur-md"
           : "border-b border-transparent"
       )}
     >
       <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
-        <a
-          href="#top"
+        <Link
+          to="/"
+          onClick={() => {
+            setMenuOpen(false)
+            // Already home: Link won't navigate, so scroll back to the hero.
+            if (isHome) {
+              window.scrollTo({
+                top: 0,
+                behavior: prefersReducedMotion() ? "auto" : "smooth",
+              })
+            }
+          }}
           className="font-mono-tight text-sm font-medium tracking-tight text-foreground transition-colors hover:text-neon"
         >
           <span className="text-neon">{">_"}</span> {profile.handle}
-        </a>
+        </Link>
 
         <div className="hidden items-center md:flex">
           <ul className="flex items-center gap-7">
             {navItems.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className="font-mono-tight text-sm text-muted-foreground transition-colors hover:text-neon"
-                >
+              <li key={item.to}>
+                <NavLink to={item.to} className={linkClass}>
                   {item.label}
-                </a>
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -103,14 +130,14 @@ export function Navbar() {
       >
         <ul className="flex flex-col gap-1 px-6 py-4">
           {navItems.map((item) => (
-            <li key={item.href}>
-              <a
-                href={item.href}
+            <li key={item.to}>
+              <NavLink
+                to={item.to}
                 onClick={() => setMenuOpen(false)}
-                className="block rounded-md px-2 py-3 font-mono-tight text-base text-foreground transition-colors hover:text-neon"
+                className={mobileLinkClass}
               >
                 {item.label}
-              </a>
+              </NavLink>
             </li>
           ))}
         </ul>

@@ -10,7 +10,6 @@ export const ui = {
     cta: "View My Work",
     secondaryCta: "Get in Touch",
     available: "Available for New Projects",
-    scroll: "Scroll",
   },
   sections: {
     about: "About Me",
