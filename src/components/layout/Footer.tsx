@@ -2,7 +2,6 @@ import { Link, useLocation } from "react-router-dom"
 
 import { GithubIcon, LinkedinIcon, MailIcon, XIcon } from "@/components/icons"
 import { profile } from "@/data/profile"
-import { ui } from "@/data/ui"
 import { prefersReducedMotion } from "@/lib/motion"
 
 export function Footer() {
@@ -36,9 +35,6 @@ export function Footer() {
           >
             <span className="text-neon">{">_"}</span> {profile.handle}
           </Link>
-          <p className="font-mono-tight text-xs text-muted-foreground">
-            {ui.footer.tagline}
-          </p>
         </div>
 
         <div className="flex items-center gap-2">

@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react"
-import { Link, NavLink, useLocation } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
 import { CloseIcon, MenuIcon } from "@/components/icons"
 import { profile } from "@/data/profile"
 import { ui } from "@/data/ui"
 import { cn } from "@/lib/utils"
-import { prefersReducedMotion } from "@/lib/motion"
 
 const navItems = [
   { to: "/about", label: ui.nav.about },
@@ -15,17 +14,7 @@ const navItems = [
 ]
 
 export function Navbar() {
-  const location = useLocation()
-  const isHome = location.pathname === "/"
-  const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
-    onScroll()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
 
   // Lock body scroll while the mobile menu is open.
   useEffect(() => {
@@ -46,10 +35,6 @@ export function Navbar() {
     return () => mq.removeEventListener("change", onChange)
   }, [])
 
-  // Solid (blurred) over content on inner pages and once scrolled; transparent
-  // at the top of the home hero.
-  const solid = scrolled || menuOpen || !isHome
-
   const linkClass = ({ isActive }: { isActive: boolean }) =>
     cn(
       "font-mono-tight text-sm transition-colors hover:text-neon",
@@ -63,27 +48,11 @@ export function Navbar() {
     )
 
   return (
-    <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-        solid
-          ? "border-b border-border bg-background/80 backdrop-blur-md"
-          : "border-b border-transparent"
-      )}
-    >
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-background/80 backdrop-blur-md">
       <nav className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6">
         <Link
           to="/"
-          onClick={() => {
-            setMenuOpen(false)
-            // Already home: Link won't navigate, so scroll back to the hero.
-            if (isHome) {
-              window.scrollTo({
-                top: 0,
-                behavior: prefersReducedMotion() ? "auto" : "smooth",
-              })
-            }
-          }}
+          onClick={() => setMenuOpen(false)}
           className="font-mono-tight text-sm font-medium tracking-tight text-foreground transition-colors hover:text-neon"
         >
           <span className="text-neon">{">_"}</span> {profile.handle}

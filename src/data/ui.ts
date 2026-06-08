@@ -34,9 +34,6 @@ export const ui = {
     intro:
       "I'm always open to discussing new projects, technology, or potential collaborations.",
   },
-  footer: {
-    tagline: "Built from the metal up.",
-  },
   a11y: {
     openMenu: "Open menu",
     closeMenu: "Close menu",

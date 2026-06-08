@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, useLocation } from "react-router-dom"
 
 import { Footer } from "@/components/layout/Footer"
 import { Navbar } from "@/components/layout/Navbar"
@@ -6,6 +6,10 @@ import { ScrollToTop } from "@/components/ScrollToTop"
 import { ui } from "@/data/ui"
 
 export function Layout() {
+  // The home page is a clean landing screen — no top navigation. Section pages
+  // get the navbar so visitors can move between them.
+  const isHome = useLocation().pathname === "/"
+
   return (
     <div className="flex min-h-svh flex-col">
       <ScrollToTop />
@@ -23,7 +27,7 @@ export function Layout() {
       >
         {ui.a11y.skipToContent}
       </a>
-      <Navbar />
+      {!isHome && <Navbar />}
       <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <Outlet />
       </main>
