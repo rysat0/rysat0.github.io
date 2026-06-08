@@ -7,7 +7,8 @@ import { TextGradientScroll } from "@/components/ui/text-gradient-scroll"
 import { profile } from "@/data/profile"
 import { ui } from "@/data/ui"
 
-// Dark, neon-accented globe. Tokyo & São Paulo are emphasised with larger markers.
+// Dark, neon-accented globe. Tokyo & São Paulo are emphasised with slightly
+// larger markers (a gentle 1.4x, not a loud one).
 const ABOUT_GLOBE: COBEOptions = {
   width: 800,
   height: 800,
@@ -22,10 +23,10 @@ const ABOUT_GLOBE: COBEOptions = {
   markerColor: [0.22, 0.95, 0.55],
   glowColor: [0.12, 0.4, 0.28],
   markers: [
-    { location: [35.18, 136.91], size: 0.05 }, // Aichi (Nagoya)
-    { location: [35.6762, 139.6503], size: 0.11 }, // Tokyo (emphasised)
-    { location: [42.3601, -71.0589], size: 0.05 }, // Boston
-    { location: [-23.5505, -46.6333], size: 0.11 }, // São Paulo (emphasised)
+    { location: [35.18, 136.91], size: 0.045 }, // Aichi (Nagoya)
+    { location: [35.6762, 139.6503], size: 0.065 }, // Tokyo (emphasised)
+    { location: [42.3601, -71.0589], size: 0.045 }, // Boston
+    { location: [-23.5505, -46.6333], size: 0.065 }, // São Paulo (emphasised)
   ],
 }
 
