@@ -11,8 +11,7 @@ import {
 import { Reveal } from "@/components/Reveal"
 import { Section, SectionHeading } from "@/components/Section"
 import { profile } from "@/data/profile"
-import { ui } from "@/i18n/dictionary"
-import { useLanguage } from "@/i18n/language-context"
+import { ui } from "@/data/ui"
 
 interface ContactMethod {
   label: string
@@ -23,12 +22,11 @@ interface ContactMethod {
 }
 
 export function Contact() {
-  const { lang } = useLanguage()
   const { contact } = profile
 
   const methods: ContactMethod[] = [
     {
-      label: ui.contact.email[lang],
+      label: ui.contact.email,
       value: contact.email,
       href: `mailto:${contact.email}`,
       Icon: MailIcon,
@@ -68,12 +66,12 @@ export function Contact() {
     <Section id="contact">
       <Reveal>
         <SectionHeading
-          label={ui.sectionLabels.contact[lang]}
-          title={ui.sections.contact[lang]}
+          label={ui.sectionLabels.contact}
+          title={ui.sections.contact}
         />
 
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground text-pretty">
-          {ui.contact.intro[lang]}
+          {ui.contact.intro}
         </p>
       </Reveal>
 
@@ -87,15 +85,15 @@ export function Contact() {
                 : {})}
               className="group flex items-center gap-4 rounded-xl border border-border bg-card/40 p-5 transition-colors hover:border-neon/50"
             >
-            <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary/40 text-foreground transition-colors group-hover:border-neon/50 group-hover:text-neon">
-              <Icon className="size-5" />
-            </span>
-            <span className="flex min-w-0 flex-col">
-              <span className="font-mono-tight text-xs uppercase tracking-wider text-muted-foreground">
-                {label}
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary/40 text-foreground transition-colors group-hover:border-neon/50 group-hover:text-neon">
+                <Icon className="size-5" />
               </span>
-              <span className="truncate text-foreground">{value}</span>
-            </span>
+              <span className="flex min-w-0 flex-col">
+                <span className="font-mono-tight text-xs uppercase tracking-wider text-muted-foreground">
+                  {label}
+                </span>
+                <span className="truncate text-foreground">{value}</span>
+              </span>
               <ArrowUpRightIcon className="ml-auto size-4 shrink-0 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-neon" />
             </a>
           </Reveal>

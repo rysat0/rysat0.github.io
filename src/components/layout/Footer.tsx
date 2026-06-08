@@ -1,10 +1,8 @@
 import { GithubIcon, LinkedinIcon, MailIcon, XIcon } from "@/components/icons"
 import { profile } from "@/data/profile"
-import { ui } from "@/i18n/dictionary"
-import { useLanguage } from "@/i18n/language-context"
+import { ui } from "@/data/ui"
 
 export function Footer() {
-  const { lang } = useLanguage()
   const { contact } = profile
   const year = 2026
 
@@ -26,7 +24,7 @@ export function Footer() {
             <span className="text-neon">{">_"}</span> {profile.handle}
           </a>
           <p className="font-mono-tight text-xs text-muted-foreground">
-            {ui.footer.tagline[lang]}
+            {ui.footer.tagline}
           </p>
         </div>
 
@@ -47,7 +45,7 @@ export function Footer() {
         </div>
 
         <p className="font-mono-tight text-xs text-muted-foreground">
-          © {year} {profile.name[lang]}
+          © {year} {profile.name}
         </p>
       </div>
     </footer>

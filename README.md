@@ -3,8 +3,8 @@
 A dark, neon-accented personal portfolio for **Ryuu Leonardo Sato** (Leonardo) —
 Brazilian-Japanese software engineer and CTO of StepAI, Inc.
 
-Single-page, bilingual (EN / 日本語), with a WebGL shader hero, scroll-reveal
-sections, and a fully static build deployable to **GitHub Pages**.
+Single-page, with a WebGL shader hero, scroll-reveal sections, and a fully
+static build deployable to **GitHub Pages**.
 
 ## Tech stack
 
@@ -27,14 +27,13 @@ npm run lint       # eslint
 
 ## Content
 
-All copy lives in typed, bilingual data files — no hard-coded strings in the UI:
+All copy lives in typed data files — no hard-coded strings in the UI:
 
 - `src/data/profile.ts` — bio, expertise, contact, "What's 42?"
 - `src/data/projects.ts` — projects (with optional external links)
-- `src/i18n/dictionary.ts` — UI chrome strings (EN / JA)
+- `src/data/ui.ts` — UI chrome strings (nav, buttons, section headers)
 
-Edit those files to update the site; the language toggle in the navbar switches
-between English and Japanese (persisted to `localStorage`, syncs `<html lang>`).
+Edit those files to update the site.
 
 ## Deployment (GitHub Pages, user page)
 

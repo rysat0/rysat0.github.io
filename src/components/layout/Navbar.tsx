@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react"
 
 import { CloseIcon, MenuIcon } from "@/components/icons"
-import { LanguageToggle } from "@/components/LanguageToggle"
 import { profile } from "@/data/profile"
-import { ui } from "@/i18n/dictionary"
-import { useLanguage } from "@/i18n/language-context"
+import { ui } from "@/data/ui"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -15,7 +13,6 @@ const navItems = [
 ]
 
 export function Navbar() {
-  const { lang } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -62,7 +59,7 @@ export function Navbar() {
           <span className="text-neon">{">_"}</span> {profile.handle}
         </a>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center md:flex">
           <ul className="flex items-center gap-7">
             {navItems.map((item) => (
               <li key={item.href}>
@@ -70,20 +67,18 @@ export function Navbar() {
                   href={item.href}
                   className="font-mono-tight text-sm text-muted-foreground transition-colors hover:text-neon"
                 >
-                  {item.label[lang]}
+                  {item.label}
                 </a>
               </li>
             ))}
           </ul>
-          <LanguageToggle />
         </div>
 
-        <div className="flex items-center gap-3 md:hidden">
-          <LanguageToggle />
+        <div className="flex items-center md:hidden">
           <button
             type="button"
             onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? ui.a11y.closeMenu[lang] : ui.a11y.openMenu[lang]}
+            aria-label={menuOpen ? ui.a11y.closeMenu : ui.a11y.openMenu}
             aria-expanded={menuOpen}
             className="rounded-md p-1.5 text-foreground transition-colors hover:text-neon"
           >
@@ -114,7 +109,7 @@ export function Navbar() {
                 onClick={() => setMenuOpen(false)}
                 className="block rounded-md px-2 py-3 font-mono-tight text-base text-foreground transition-colors hover:text-neon"
               >
-                {item.label[lang]}
+                {item.label}
               </a>
             </li>
           ))}

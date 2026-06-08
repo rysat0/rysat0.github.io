@@ -1,30 +1,27 @@
 import { Reveal } from "@/components/Reveal"
 import { Section, SectionHeading } from "@/components/Section"
 import { profile } from "@/data/profile"
-import { ui } from "@/i18n/dictionary"
-import { useLanguage } from "@/i18n/language-context"
+import { ui } from "@/data/ui"
 
 export function Expertise() {
-  const { lang } = useLanguage()
-
   return (
     <Section id="expertise">
       <Reveal>
         <SectionHeading
-          label={ui.sectionLabels.expertise[lang]}
-          title={ui.sections.expertise[lang]}
+          label={ui.sectionLabels.expertise}
+          title={ui.sections.expertise}
         />
         <p className="mt-6 max-w-3xl text-lg leading-relaxed text-muted-foreground text-pretty">
-          {profile.expertiseIntro[lang]}
+          {profile.expertiseIntro}
         </p>
       </Reveal>
 
       <div className="mt-12 grid gap-5 sm:grid-cols-2">
         {profile.skills.map((category, i) => (
-          <Reveal key={category.name.en} delay={i * 0.08} className="h-full">
+          <Reveal key={category.name} delay={i * 0.08} className="h-full">
             <div className="group h-full rounded-xl border border-border bg-card/40 p-6 transition-colors hover:border-neon/50">
               <h3 className="font-mono-tight text-sm uppercase tracking-[0.18em] text-neon">
-                {category.name[lang]}
+                {category.name}
               </h3>
               <ul className="mt-4 flex flex-wrap gap-2">
                 {category.items.map((item) => (

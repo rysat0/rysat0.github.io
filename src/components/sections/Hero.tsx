@@ -4,8 +4,7 @@ import { lazy, Suspense, useLayoutEffect, useMemo, useRef } from "react"
 import { ArrowDownIcon } from "@/components/icons"
 import { LiquidButton } from "@/components/ui/liquid-glass-button"
 import { profile } from "@/data/profile"
-import { ui } from "@/i18n/dictionary"
-import { useLanguage } from "@/i18n/language-context"
+import { ui } from "@/data/ui"
 import { prefersReducedMotion } from "@/lib/motion"
 
 // Code-split three.js out of the initial bundle; the dark background and hero
@@ -23,15 +22,12 @@ function scrollToId(id: string) {
 }
 
 export function Hero() {
-  const { lang } = useLanguage()
   const contentRef = useRef<HTMLDivElement>(null)
 
   const prefersReduced = useMemo(() => prefersReducedMotion(), [])
 
-  // Staggered entrance for the hero copy (anime.js). The initial hidden state
-  // is set imperatively (not via React-controlled inline styles) so that later
-  // rerenders — e.g. a language toggle — never re-hide the already-revealed
-  // content. useLayoutEffect applies opacity:0 before paint to avoid a flash.
+  // Staggered entrance for the hero copy (anime.js). useLayoutEffect sets the
+  // initial hidden state before paint to avoid a flash.
   useLayoutEffect(() => {
     if (prefersReduced || !contentRef.current) return
     const targets =
@@ -72,7 +68,7 @@ export function Hero() {
           data-animate
           className="text-5xl font-semibold tracking-tighter text-glow sm:text-6xl md:text-7xl"
         >
-          {profile.heroHeadlinePrefix[lang]}{" "}
+          {profile.heroHeadlinePrefix}{" "}
           <span className="text-neon">{profile.nickname}</span>
         </h1>
 
@@ -85,7 +81,7 @@ export function Hero() {
             <span className="relative inline-flex size-2 rounded-full bg-neon" />
           </span>
           <span className="font-mono-tight text-xs text-neon">
-            {ui.hero.available[lang]}
+            {ui.hero.available}
           </span>
         </div>
 
@@ -93,7 +89,7 @@ export function Hero() {
           data-animate
           className="max-w-2xl text-pretty text-base text-muted-foreground sm:text-lg"
         >
-          {profile.heroTagline[lang]}
+          {profile.heroTagline}
         </p>
 
         <div
@@ -106,13 +102,13 @@ export function Hero() {
             className="text-foreground"
             onClick={() => scrollToId("projects")}
           >
-            {ui.hero.cta[lang]}
+            {ui.hero.cta}
           </LiquidButton>
           <a
             href="#contact"
             className="inline-flex h-12 items-center justify-center rounded-md border border-border px-7 font-medium text-foreground transition-colors hover:border-neon hover:text-neon"
           >
-            {ui.hero.secondaryCta[lang]}
+            {ui.hero.secondaryCta}
           </a>
         </div>
       </div>
@@ -120,7 +116,7 @@ export function Hero() {
       <button
         type="button"
         onClick={() => scrollToId("about")}
-        aria-label={ui.hero.scroll[lang]}
+        aria-label={ui.hero.scroll}
         className="absolute bottom-7 left-1/2 z-10 -translate-x-1/2 text-muted-foreground transition-colors hover:text-neon"
       >
         <ArrowDownIcon className="size-6 motion-safe:animate-bounce" />

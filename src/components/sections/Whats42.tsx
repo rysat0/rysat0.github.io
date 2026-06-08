@@ -2,12 +2,9 @@ import { ArrowUpRightIcon } from "@/components/icons"
 import { Reveal } from "@/components/Reveal"
 import { Section } from "@/components/Section"
 import { profile } from "@/data/profile"
-import { ui } from "@/i18n/dictionary"
-import { useLanguage } from "@/i18n/language-context"
+import { ui } from "@/data/ui"
 
 export function Whats42() {
-  const { lang } = useLanguage()
-
   return (
     <Section className="py-8 md:py-10">
       <Reveal className="relative overflow-hidden rounded-2xl border border-neon/20 bg-card/40 p-8 shadow-neon backdrop-blur md:p-10">
@@ -17,13 +14,13 @@ export function Whats42() {
         />
         <div className="relative flex flex-col gap-4">
           <span className="font-mono-tight text-xs uppercase tracking-[0.22em] text-neon">
-            <span aria-hidden="true">💡</span> {ui.sections.whats42[lang]}
+            <span aria-hidden="true">💡</span> {ui.sections.whats42}
           </span>
           <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
             42&nbsp;/&nbsp;42Tokyo
           </h2>
           <div className="flex max-w-3xl flex-col gap-3">
-            {profile.whats42.body[lang].map((text, i) => (
+            {profile.whats42.body.map((text, i) => (
               <p key={i} className="leading-relaxed text-muted-foreground text-pretty">
                 {text}
               </p>
