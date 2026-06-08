@@ -19,6 +19,11 @@ import { cn } from "@/lib/utils"
 
 const DESKTOP_QUERY = "(min-width: 768px)"
 
+// How many words share the soft transition band at any moment. A wider band
+// means neighbouring words fade together (a gentle gradient sweeping down)
+// instead of one hard word-wide edge, so the reveal reads smooth, not choppy.
+const REVEAL_BAND = 14
+
 /** True on md+ screens. The pinned scroll-reveal is a desktop-only flourish. */
 function useIsDesktop() {
   const [isDesktop, setIsDesktop] = useState(
@@ -136,8 +141,12 @@ function ScrollReveal({
               <p key={pi} className={cn("relative m-0", paragraphClassName)}>
                 {words.map((word, wi) => {
                   const index = paragraphStart[pi] + wi
-                  const start = index / total
-                  const end = (index + 1) / total
+                  // Each word fades over a REVEAL_BAND-word window, so several
+                  // words are mid-transition at once (soft gradient, not a hard
+                  // one-word edge). denom keeps the last word finishing at ~1.
+                  const denom = total + REVEAL_BAND
+                  const start = index / denom
+                  const end = (index + REVEAL_BAND) / denom
                   const range = [start, end]
                   return (
                     <Fragment key={wi}>
@@ -157,8 +166,9 @@ function ScrollReveal({
             ))}
           </div>
         </div>
-        {/* Scroll track: room for the pinned text to reveal in place. */}
-        <div aria-hidden="true" className="h-[80vh]" />
+        {/* Scroll track: the longer it is, the more scroll the reveal spans, so
+            the bright wavefront sweeps down slowly rather than racing ahead. */}
+        <div aria-hidden="true" className="h-[150vh]" />
       </div>
     </TextGradientScrollContext.Provider>
   )
