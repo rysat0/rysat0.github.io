@@ -34,20 +34,23 @@ export function About() {
 
   return (
     <Section id="about" className="relative">
-      {/* Decorative layer: clips the oversized globe without making the
-          section an overflow container (which would break the sticky heading). */}
+      {/* Decorative layer spanning the (tall) section. A sticky, viewport-tall
+          panel keeps the globe vertically centred on screen while the reveal
+          scrolls past, instead of letting it sink to the section's midpoint. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
+        className="pointer-events-none absolute inset-0 z-0"
       >
-        {/* Oversized ambient globe that bleeds in behind the content.
-            md keeps translate-x at 0 so the sphere stays fully on-screen
-            (a negative shift would get hard-clipped at the section's left edge). */}
-        <div className="absolute top-1/2 left-1/2 w-[26rem] -translate-x-1/2 -translate-y-1/2 opacity-40 md:left-0 md:w-[46rem] md:translate-x-0 md:opacity-90">
-          <Globe config={ABOUT_GLOBE} className="w-full" />
+        <div className="sticky top-0 h-screen overflow-hidden">
+          {/* Oversized ambient globe that bleeds in behind the content.
+              md keeps translate-x at 0 so the sphere stays fully on-screen
+              (a negative shift would get hard-clipped at the section's edge). */}
+          <div className="absolute top-1/2 left-1/2 w-[26rem] -translate-x-1/2 -translate-y-1/2 opacity-40 md:left-0 md:w-[46rem] md:translate-x-0 md:opacity-90">
+            <Globe config={ABOUT_GLOBE} className="w-full" />
+          </div>
+          {/* Scrim so the text stays legible over the globe */}
+          <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-background/30 to-background/80" />
         </div>
-        {/* Scrim so the text stays legible over the globe */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-background/30 to-background/80" />
       </div>
 
       <div className="relative z-10 grid gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.8fr)] md:gap-16">
