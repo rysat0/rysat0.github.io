@@ -9,11 +9,31 @@ import {
   createContext,
   Fragment,
   useContext,
+  useEffect,
   useRef,
+  useState,
   type ReactNode,
 } from "react"
 
 import { cn } from "@/lib/utils"
+
+const DESKTOP_QUERY = "(min-width: 768px)"
+
+/** True on md+ screens. The pinned scroll-reveal is a desktop-only flourish. */
+function useIsDesktop() {
+  const [isDesktop, setIsDesktop] = useState(
+    () =>
+      typeof window !== "undefined" && window.matchMedia(DESKTOP_QUERY).matches
+  )
+  useEffect(() => {
+    const mq = window.matchMedia(DESKTOP_QUERY)
+    const update = () => setIsDesktop(mq.matches)
+    update()
+    mq.addEventListener("change", update)
+    return () => mq.removeEventListener("change", update)
+  }, [])
+  return isDesktop
+}
 
 type TextOpacityEnum = "none" | "soft" | "medium"
 type ViewTypeEnum = "word" | "letter"
@@ -42,17 +62,15 @@ export function TextGradientScroll({
   type = "word",
   textOpacity = "medium",
 }: TextGradientScrollType) {
-  const ref = useRef<HTMLDivElement>(null)
   const reduced = useReducedMotion()
-  // Monotonic for any block height (avoids reverse progress on short blocks).
-  // Words stay mostly dim at the top and fill in as you scroll through.
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start center", "end center"],
-  })
+  const isDesktop = useIsDesktop()
 
-  // Reduced motion: plain, fully legible paragraphs, no scroll reveal.
-  if (reduced) {
+  // Reduced motion or mobile: plain, fully legible paragraphs, no scroll reveal.
+  // On phones the block is taller than the screen, so a pinned reveal would
+  // light lower paragraphs up off-screen; plain text reads cleanly instead.
+  // The reveal lives in its own component so useScroll's target ref is only ever
+  // created when that branch actually mounts (an unmounted target warns in dev).
+  if (reduced || !isDesktop) {
     return (
       <div className={cn("flex flex-col", className)}>
         {paragraphs.map((p, i) => (
@@ -64,6 +82,39 @@ export function TextGradientScroll({
     )
   }
 
+  return (
+    <ScrollReveal
+      paragraphs={paragraphs}
+      className={className}
+      paragraphClassName={paragraphClassName}
+      type={type}
+      textOpacity={textOpacity}
+    />
+  )
+}
+
+function ScrollReveal({
+  paragraphs,
+  className,
+  paragraphClassName,
+  type,
+  textOpacity,
+}: Required<Pick<TextGradientScrollType, "paragraphs">> &
+  Pick<
+    TextGradientScrollType,
+    "className" | "paragraphClassName" | "type" | "textOpacity"
+  >) {
+  const ref = useRef<HTMLDivElement>(null)
+  // The track (text + spacer) is the scroll target. Progress is 0 until the
+  // track's top reaches the viewport top, so every word is dim at load on ANY
+  // viewport height. It then fills in as the pinned text is scrolled past, and
+  // always finishes because there is content below the track. start/end stays
+  // monotonic because the spacer makes the track taller than the viewport.
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  })
+
   const perParagraph = paragraphs.map((p) => p.split(" "))
   const counts = perParagraph.map((words) => words.length)
   const total = counts.reduce((n, c) => n + c, 0)
@@ -73,33 +124,41 @@ export function TextGradientScroll({
   )
 
   return (
-    <TextGradientScrollContext.Provider value={textOpacity}>
+    <TextGradientScrollContext.Provider value={textOpacity ?? "medium"}>
       {/* Accessible, selectable copy exposed once; the animated layer is decorative. */}
       <span className="sr-only">{paragraphs.join("\n\n")}</span>
-      <div ref={ref} aria-hidden="true" className={cn("flex flex-col", className)}>
-        {perParagraph.map((words, pi) => (
-          <p key={pi} className={cn("relative m-0", paragraphClassName)}>
-            {words.map((word, wi) => {
-              const index = paragraphStart[pi] + wi
-              const start = index / total
-              const end = (index + 1) / total
-              const range = [start, end]
-              return (
-                <Fragment key={wi}>
-                  {type === "word" ? (
-                    <Word progress={scrollYProgress} range={range}>
-                      {word}
-                    </Word>
-                  ) : (
-                    <Letter progress={scrollYProgress} range={range}>
-                      {word}
-                    </Letter>
-                  )}{" "}
-                </Fragment>
-              )
-            })}
-          </p>
-        ))}
+      <div ref={ref} aria-hidden="true" className="relative">
+        {/* Pins the (viewport-fitting) block and reveals it in place while the
+            spacer below is scrolled through. */}
+        <div className="sticky top-24">
+          <div className={cn("flex flex-col", className)}>
+            {perParagraph.map((words, pi) => (
+              <p key={pi} className={cn("relative m-0", paragraphClassName)}>
+                {words.map((word, wi) => {
+                  const index = paragraphStart[pi] + wi
+                  const start = index / total
+                  const end = (index + 1) / total
+                  const range = [start, end]
+                  return (
+                    <Fragment key={wi}>
+                      {type === "letter" ? (
+                        <Letter progress={scrollYProgress} range={range}>
+                          {word}
+                        </Letter>
+                      ) : (
+                        <Word progress={scrollYProgress} range={range}>
+                          {word}
+                        </Word>
+                      )}{" "}
+                    </Fragment>
+                  )
+                })}
+              </p>
+            ))}
+          </div>
+        </div>
+        {/* Scroll track: room for the pinned text to reveal in place. */}
+        <div aria-hidden="true" className="h-[80vh]" />
       </div>
     </TextGradientScrollContext.Provider>
   )

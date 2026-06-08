@@ -40,8 +40,10 @@ export function About() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
       >
-        {/* Oversized ambient globe that bleeds in behind the content */}
-        <div className="absolute top-1/2 left-1/2 w-[26rem] -translate-x-1/2 -translate-y-1/2 opacity-40 md:left-0 md:w-[46rem] md:-translate-x-1/4 md:opacity-90">
+        {/* Oversized ambient globe that bleeds in behind the content.
+            md keeps translate-x at 0 so the sphere stays fully on-screen
+            (a negative shift would get hard-clipped at the section's left edge). */}
+        <div className="absolute top-1/2 left-1/2 w-[26rem] -translate-x-1/2 -translate-y-1/2 opacity-40 md:left-0 md:w-[46rem] md:translate-x-0 md:opacity-90">
           <Globe config={ABOUT_GLOBE} className="w-full" />
         </div>
         {/* Scrim so the text stays legible over the globe */}
@@ -68,6 +70,7 @@ export function About() {
               {lead}
             </p>
           </Reveal>
+          {/* Pinned scroll-reveal: dim at load, fills in as you scroll past. */}
           <TextGradientScroll
             paragraphs={rest}
             className="gap-6"
