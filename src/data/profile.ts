@@ -45,14 +45,14 @@ export const profile: Profile = {
   heroHeadlinePrefix: "Hi, I'm",
   about: [
     "I'm Ryuu Leonardo Sato, a 22-year-old Brazilian-Japanese software engineer and the CTO of StepAI, Inc., based in Tokyo, Japan.",
-    "My journey into tech began with Electrical Engineering in high school in Nagoya. During those years I earned an Electrician's license, a Hazardous Materials Engineer's license, and a Mechanical Drawing & CAD certificate — ultimately graduating as the valedictorian of my class.",
+    "My journey into tech began with Electrical Engineering in high school in Nagoya. During those years I earned an Electrician's license, a Hazardous Materials Engineer's license, and a Mechanical Drawing & CAD certificate. I graduated as the valedictorian of my class.",
     "I went on to study Computer Science at the Aichi Institute of Technology, then took a leave of absence to launch my own marketing consultancy, managing social media strategies (LINE, Instagram, X) for clients ranging from educational institutions and clinics to restaurants.",
     "That entrepreneurial experience was valuable, but my true passion is building technology from the ground up. Driven to master the fundamentals of coding, I moved to Tokyo and earned a place at 42Tokyo (April 2025 cohort) after completing the intensive 4-week “Piscine” with honors.",
-    "At 42, I was recruited by a peer to join StepAI in its foundational stage. As CTO my role is comprehensive: I lead our AI-driven contract development, manage engineer hiring and team leadership, and even contribute to sales — all while architecting and building our core products.",
+    "At 42, I was recruited by a peer to join StepAI in its foundational stage. As CTO my role is comprehensive: I lead our AI-driven contract development, manage engineer hiring and team leadership, and even contribute to sales. Through all of it, I keep architecting and building our core products.",
   ],
   whats42: {
     body: [
-      "42Tokyo is the exclusive Tokyo campus of “42” from Paris — a groundbreaking, tuition-free coding institution founded in France.",
+      "42Tokyo is the exclusive Tokyo campus of “42” from Paris, a groundbreaking, tuition-free coding institution founded in France.",
       "It bypasses traditional classes and teachers entirely, fostering elite software engineers through a highly selective, 100% project-based, peer-to-peer learning environment.",
     ],
     links: [
@@ -61,7 +61,7 @@ export const profile: Profile = {
     ],
   },
   expertiseIntro:
-    "My foundational expertise is in C, specializing in low-level systems programming — system calls, kernel interactions, and memory-aware optimization. I'm actively expanding my stack across Python, C++, TypeScript, and Go, with hands-on experience in cloud infrastructure and full-cycle Linux server management.",
+    "My foundational expertise is in C, specializing in low-level systems programming: system calls, kernel interactions, and memory-aware optimization. I'm actively expanding my stack across Python, C++, TypeScript, and Go, with hands-on experience in cloud infrastructure and full-cycle Linux server management.",
   skills: [
     {
       name: "Languages",

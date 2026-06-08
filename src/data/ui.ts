@@ -19,10 +19,10 @@ export const ui = {
     contact: "Get in Touch",
   },
   sectionLabels: {
-    about: "01 — Who I am",
-    expertise: "02 — What I do",
-    projects: "03 — Selected work",
-    contact: "04 — Say hello",
+    about: "01 · Who I am",
+    expertise: "02 · What I do",
+    projects: "03 · Selected work",
+    contact: "04 · Say hello",
   },
   projects: {
     viewSite: "View Site",

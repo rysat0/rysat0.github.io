@@ -16,7 +16,7 @@ export const projects: Project[] = [
     org: "StepAI",
     featured: true,
     description:
-      "Our flagship AI outbound/inbound call system, architected and built from scratch — an STT → LLM (RAG) → TTS pipeline running on AWS infrastructure.",
+      "Our flagship AI outbound/inbound call system, architected and built from scratch: an STT → LLM (RAG) → TTS pipeline running on AWS infrastructure.",
     tags: ["AWS", "STT", "LLM", "RAG", "TTS"],
     url: "https://www.stepai.co.jp",
   },
@@ -40,7 +40,7 @@ export const projects: Project[] = [
     id: "shell",
     name: "Shell",
     description:
-      "A Unix shell (bash) built from scratch in C: custom lexer/parser, process creation via fork/execve, pipes & I/O redirection (incl. heredocs), env-var expansion, signal handling, and builtins — all with manual memory management and zero leaks.",
+      "A Unix shell (bash) built from scratch in C: custom lexer/parser, process creation via fork/execve, pipes & I/O redirection (incl. heredocs), env-var expansion, signal handling, and builtins, all with manual memory management and zero leaks.",
     tags: ["C", "Unix", "Parser", "Processes"],
   },
   {
