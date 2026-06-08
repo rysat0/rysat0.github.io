@@ -25,13 +25,13 @@ const ABOUT_GLOBE: COBEOptions = {
   // Markers flush to the surface (default 0.05 lifts them off, so they read as
   // floating above the dot grid instead of as emphasised surface points).
   markerElevation: 0,
-  // Emphasis is by brightness, not floating size: Aichi & Boston are dim lit
-  // dots, Tokyo & São Paulo glow brighter, all sitting in the dot grid.
+  // Emphasis is by brightness only: every city is the same small size, but
+  // Tokyo & São Paulo glow brighter while Aichi & Boston are dim lit dots.
   markers: [
     { location: [35.18, 136.91], size: 0.05, color: [0.16, 0.42, 0.28] }, // Aichi (Nagoya)
-    { location: [35.6762, 139.6503], size: 0.06, color: [0.22, 0.95, 0.55] }, // Tokyo (emphasised)
+    { location: [35.6762, 139.6503], size: 0.05, color: [0.22, 0.95, 0.55] }, // Tokyo (emphasised)
     { location: [42.3601, -71.0589], size: 0.05, color: [0.16, 0.42, 0.28] }, // Boston
-    { location: [-23.5505, -46.6333], size: 0.06, color: [0.22, 0.95, 0.55] }, // São Paulo (emphasised)
+    { location: [-23.5505, -46.6333], size: 0.05, color: [0.22, 0.95, 0.55] }, // São Paulo (emphasised)
   ],
 }
 
