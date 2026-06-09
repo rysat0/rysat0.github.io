@@ -88,7 +88,7 @@ export function Hero() {
             type="button"
             size="xl"
             className="text-foreground"
-            onClick={() => navigate("/projects")}
+            onClick={() => navigate("/about")}
           >
             {ui.hero.cta}
           </LiquidButton>
