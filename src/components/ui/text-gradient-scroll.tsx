@@ -9,36 +9,17 @@ import {
   createContext,
   Fragment,
   useContext,
-  useEffect,
   useRef,
-  useState,
   type ReactNode,
 } from "react"
 
+import { useIsDesktop } from "@/lib/use-is-desktop"
 import { cn } from "@/lib/utils"
-
-const DESKTOP_QUERY = "(min-width: 768px)"
 
 // How many words share the soft transition band at any moment. A wider band
 // means neighbouring words fade together (a gentle gradient sweeping down)
 // instead of one hard word-wide edge, so the reveal reads smooth, not choppy.
 const REVEAL_BAND = 14
-
-/** True on md+ screens. The pinned scroll-reveal is a desktop-only flourish. */
-function useIsDesktop() {
-  const [isDesktop, setIsDesktop] = useState(
-    () =>
-      typeof window !== "undefined" && window.matchMedia(DESKTOP_QUERY).matches
-  )
-  useEffect(() => {
-    const mq = window.matchMedia(DESKTOP_QUERY)
-    const update = () => setIsDesktop(mq.matches)
-    update()
-    mq.addEventListener("change", update)
-    return () => mq.removeEventListener("change", update)
-  }, [])
-  return isDesktop
-}
 
 type TextOpacityEnum = "none" | "soft" | "medium"
 type ViewTypeEnum = "word" | "letter"

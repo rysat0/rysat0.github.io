@@ -28,6 +28,7 @@ export const ui = {
     viewSite: "View Site",
     featured: "Featured",
     viewOnGithub: "View My Work on GitHub",
+    orbitHint: "Each node is a project. Tap one to expand its story and how it connects.",
   },
   contact: {
     email: "Email",
