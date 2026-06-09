@@ -1,4 +1,4 @@
-import { ArrowRight, ExternalLink, Link, Zap } from "lucide-react"
+import { ArrowRight, ExternalLink, Link } from "lucide-react"
 import { useEffect, useMemo, useRef, useState } from "react"
 
 import { Badge } from "@/components/ui/badge"
@@ -267,24 +267,6 @@ export function RadialOrbitalTimeline({
                         <ExternalLink size={11} />
                       </a>
                     )}
-
-                    <div className="mt-4 border-t border-border pt-3">
-                      <div className="mb-1 flex items-center justify-between text-xs">
-                        <span className="flex items-center text-muted-foreground">
-                          <Zap size={10} className="mr-1" />
-                          Energy
-                        </span>
-                        <span className="font-mono-tight text-foreground">
-                          {item.energy}%
-                        </span>
-                      </div>
-                      <div className="h-1 w-full overflow-hidden rounded-full bg-secondary">
-                        <div
-                          className="h-full bg-gradient-to-r from-neon to-emerald-400"
-                          style={{ width: `${item.energy}%` }}
-                        />
-                      </div>
-                    </div>
 
                     {item.relatedIds.length > 0 && (
                       <div className="mt-4 border-t border-border pt-3">
