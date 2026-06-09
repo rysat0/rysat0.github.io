@@ -89,7 +89,7 @@ export function RadialOrbitalTimeline({
     const measure = () => {
       const r = Math.max(
         120,
-        Math.min(210, (Math.min(el.offsetWidth, el.offsetHeight) - 150) / 2)
+        Math.min(290, (Math.min(el.offsetWidth, el.offsetHeight) - 160) / 2)
       )
       setRadius(r)
     }
@@ -140,7 +140,7 @@ export function RadialOrbitalTimeline({
     <div
       ref={containerRef}
       onClick={handleContainerClick}
-      className={`relative mx-auto flex h-[680px] w-full max-w-3xl items-center justify-center overflow-hidden md:h-[740px] ${className ?? ""}`}
+      className={`relative mx-auto flex h-[760px] w-full max-w-4xl items-center justify-center overflow-hidden md:h-[860px] ${className ?? ""}`}
     >
       <div
         ref={orbitRef}
@@ -148,13 +148,13 @@ export function RadialOrbitalTimeline({
         style={{ perspective: "1000px" }}
       >
         {/* Core */}
-        <div className="absolute z-10 flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-neon via-emerald-400 to-teal-400 motion-safe:animate-pulse">
-          <div className="absolute size-20 rounded-full border border-neon/30 opacity-70 motion-safe:animate-ping" />
+        <div className="absolute z-10 flex size-20 items-center justify-center rounded-full bg-gradient-to-br from-neon via-emerald-400 to-teal-400 motion-safe:animate-pulse">
+          <div className="absolute size-24 rounded-full border border-neon/30 opacity-70 motion-safe:animate-ping" />
           <div
-            className="absolute size-24 rounded-full border border-neon/15 opacity-50 motion-safe:animate-ping"
+            className="absolute size-28 rounded-full border border-neon/15 opacity-50 motion-safe:animate-ping"
             style={{ animationDelay: "0.5s" }}
           />
-          <div className="size-8 rounded-full bg-background/85 backdrop-blur-md" />
+          <div className="size-10 rounded-full bg-background/85 backdrop-blur-md" />
         </div>
 
         {/* Orbit ring */}
@@ -183,17 +183,17 @@ export function RadialOrbitalTimeline({
                 opacity: isExpanded ? 1 : position.opacity,
               }}
             >
-              {/* Energy halo (decorative) */}
+              {/* Glow halo (decorative), centered on the 56px node */}
               <div
                 aria-hidden="true"
-                className={`pointer-events-none absolute rounded-full -inset-1 ${isPulsing ? "motion-safe:animate-pulse" : ""}`}
+                className={`pointer-events-none absolute rounded-full ${isPulsing ? "motion-safe:animate-pulse" : ""}`}
                 style={{
                   background:
                     "radial-gradient(circle, rgba(74,222,128,0.22) 0%, rgba(74,222,128,0) 70%)",
-                  width: `${item.energy * 0.5 + 40}px`,
-                  height: `${item.energy * 0.5 + 40}px`,
-                  left: `-${(item.energy * 0.5) / 2}px`,
-                  top: `-${(item.energy * 0.5) / 2}px`,
+                  width: `${item.energy * 0.6 + 64}px`,
+                  height: `${item.energy * 0.6 + 64}px`,
+                  left: `${(56 - (item.energy * 0.6 + 64)) / 2}px`,
+                  top: `${(56 - (item.energy * 0.6 + 64)) / 2}px`,
                 }}
               />
 
@@ -206,7 +206,7 @@ export function RadialOrbitalTimeline({
                   e.stopPropagation()
                   toggleItem(item.id)
                 }}
-                className={`flex size-10 cursor-pointer items-center justify-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+                className={`flex size-14 cursor-pointer items-center justify-center rounded-full border-2 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neon focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                   isExpanded
                     ? "scale-150 border-neon bg-neon text-background shadow-neon"
                     : isRelated
@@ -214,13 +214,13 @@ export function RadialOrbitalTimeline({
                       : "border-border bg-card text-foreground"
                 }`}
               >
-                <Icon size={16} />
+                <Icon size={22} />
               </button>
 
               {/* Label (decorative; the trigger carries the aria-label) */}
               <div
                 aria-hidden="true"
-                className={`absolute top-12 left-1/2 -translate-x-1/2 whitespace-nowrap text-xs font-semibold tracking-wider transition-all duration-300 ${
+                className={`absolute top-16 left-1/2 -translate-x-1/2 whitespace-nowrap text-sm font-semibold tracking-wider transition-all duration-300 ${
                   isExpanded ? "scale-110 text-foreground" : "text-muted-foreground"
                 }`}
               >
